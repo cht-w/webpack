@@ -1,0 +1,16 @@
+#box1 {
+    height: 100px;
+    width: 100px;
+    background: url("./img/01.jpg");
+
+}
+#box2 {
+    height: 200px;
+    width: 200px;
+    background: url("./img/03.jpg");
+}
+#box3 {
+    height: 300px;
+    width: 300px;
+    background: url("./img/04.jpg");
+}

@@ -1,0 +1,225 @@
+1. webpack 五个核心概念
+
+  Entry  入口，webpack 以哪个文件做为起点开始打包。
+
+  Output  输出 ， 打包后输出到哪里 ，以及命名问题
+
+  loader  让webpack  处理一些非js 的文件 写在 module里面
+
+  Plugins 插件   打包优化压缩等
+
+  Mode  模式配置  1. development   2. production
+
+2 . webpack 初体验   webpack能够打包 js  json 资源，但是不能直接打包 css 资源
+
+    1. 首先创建一个文件夹，进入当前文件夹 ， 初始化项目文件   执行： npm init
+    2. 下载依赖包   全局安装 webpack   和   webpack-cli   执行： npm i webpack webpack-cli -g
+       注意： webpack 4.x 版本以上，webpack将相关命令内容都放到了webpack-cli，必须安装webpack-cli
+             查看版本： webpack -v
+    3. 本地安装 npm i webpack webpack-cli -D   指定版本：cnpm i webpack@4.41.6 webpack-cli@3.3.11 -D
+
+    4. 当前目录下 创建src 文件， 在src中创建 入口文件index.js
+            src => index.js  入口文件
+            创建示例代码 ：js任意语句
+            运行指令 ：
+               开发环境执行：webpack ./src/index.js -o ./build/built.js --mode=development
+                   webpack 会以 ./src/index.js 为入口文件开始打包 ，打包后输出到 ./build/built.js 整体打包环境是 开发环境。
+               生产环境执行： webpack ./src/index.js -o ./build/built.js --mode=production
+
+
+            注释： 运行命令成功后，控制台输出如下信息 ：
+                    Hash: 每一次打包生成一个唯一值，类似于id。  例如：  Hash: ad9e8a280a99560b2840
+                    Version：webpack的版本               例如： Version: webpack 4.44.2
+                    Time:  打包所用时间                         Time: 138ms
+                    打包具体信息：
+                    Built at: 2020-11-11 11:27:47
+                       Asset       Size        Chunks             Chunk Names
+                       built.js    3.84 KiB    main  [emitted]    main
+                    Entrypoint main = built.js
+                    [./src/index.js] 63 bytes {main} [built]
+
+    5. webpack 能够打包 js  json 文件
+        尝试1 ： 在src下 新建 data.json文件，在index.js文件中引入 ， 运行打包命令 成功！
+        尝试2 ： 在src下 新建 index.css文件，在index.js文件中引入 ， 运行打包命令 失败！
+
+
+        错误如下： 大致意思是：打包错误，你需要一个loader 去处理这个文件类型
+        ERROR in ./src/index.css 1:5
+        Module parse failed: Unexpected token (1:5)
+        You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+        > html body {
+        |     height: 100%;
+        |     background: #9a6e3a;
+         @ ./src/index.js 13:0-21
+
+初体验结论： webpack 能够打包js json 文件，但是不能够打包 css img 文件。
+            webpack 的开发环境和生产环境能够将ES6模块化-编译成浏览器识别的模块化。
+            webpack 的生产环境比开发环境多一个 代码压缩功能
+
+  --------------------- 这就是webpack最基本的功能
+
+3 . webpack 打包样式资源  css  less  scss
+    为了方便，统一去将 webpack 和 webpack-cli 以及用到的loader 安装到根目录webpack 让 node 自己去找包。
+
+    1. 新建一个目录 新建一个src文件夹，并在其中指定入口文件 index.js  新建index.css  , 将 index.css 文件导入到 index.js 文件中。
+    2. 在当前文件夹根目录下，新建 webpack.config.js 文件， 这个文件是webpack 的配置文件。
+
+    配置文件信息如下 ：
+        const { resolve }  = require('path');
+        module.exports = {
+            // 指定入口文件
+            entry:'./src/index.js',
+            // 指定出口文件
+            output：{
+                // 文件名称
+                filename:"built.js",
+                // 文件路径
+                path: resolve(__dirname , 'bulid')
+            },
+            // loader 配置
+            module: {
+                rules:[
+                    {
+                        test:/\.css$/ ,
+                        use:[
+                            'style-loader',
+                            'css-loader'
+                        ]
+                    }
+                ]
+            },
+            plugins:[],
+            mode:"development"
+        }
+
+    3. 初始化项目和 1 相同， 这里我们需要安装css-loader 和 style-loader
+
+        命令  cnpm i  css-loader  style-loader -D
+
+    4. 依赖安装好以后，直接运行 webpack ，就会打包css 文件。
+
+    5. 同样的我们有时候需要处理 less  或者 scss 文件 。
+
+        我们得修改 loader 的配置信息 rules
+        具体如下:
+            rules:[
+                {
+                    test:/\.less$/,
+                    use:[
+                        'style-loader',
+                        'css-loader',
+                        'less-loader'
+                    ]
+                }
+            ]
+        下载 less-loader 命令 ： cnpm i  less  less-loader -D
+
+        ******注意： 如果只是安装 less-loader 会报错 ：Cannot find module 'less'
+
+4 . 打包html文件
+    新建一个文件夹， 并创建一个src文件，在src中创建 index.js 入口文件，和 index.html 文件。
+
+    1. plugins 使用：  1. 下载  2.引入  3. 使用
+
+    2. html 打包需要使用  html-webpack-plugin依赖
+            1. 执行 cnpm  i html-webpack-plugin -D  => 2. const HtmlWebpackPlugin = require("html-webpack-plugin");
+            => 3. new HtmlWebpackPlugin()
+    3. 运行 webpack 就可以打包
+
+    4. 打包后我们发现， HtmlWebpackPlugin 会默认创建一个空的HTML文件，并且自动引入打包输出的所有 JS Css 资源
+        如果我们想把 index.html 文件结构放到 打包自动创建的index.html中， 需要在HtmlWebpackPlugin()构造函数中 配置 template
+
+5 . 打包 图片资源文件
+
+    新建我一个文件夹， 并创建src， 在src中创建 index.js  index.css ,index.html  和 img文件夹， 在 img中放入图片。
+
+    1. 在新建的webpak.config.js 中创建 基本的结构 基本代码都在上方
+
+    2. 我们把图片，作为背景图片 放到index.html 中
+
+    3. 在 webpack.config.js 中，我们需要配置loader ，即 =》 module =》 rules  配置如下
+
+    rules:[
+        {
+            test:/\.(jpg|png|gif)$/,
+            // 使用一个loader 直接写loader 就可以
+            // 需要下载两个包 ， url-loader  file-loader
+            loader:"url-loader"
+            options:{
+                // 图片大小小于8kb ，就会被base64处理
+                limit: 8 * 1024 ,
+                // 给图片重命名
+                // [hash:10] => 取 hash值的前十位
+                // [ext] => 取原文件的扩展名
+                name:'[hash:10].[ext]'
+            }
+        }
+
+    ]
+    4. 安装loader  运行命令 ： cnpm i url-loader file-loader -D
+
+    5. 运行命令 webpack  即可打包。
+
+        问题1： 打包后 图片名称太长
+        解决方式：
+            =》 在 options中配置 name:'[hash:10].[ext]'
+
+        问题2 ： 上面打包资源的方式是 background：url()
+        默认 无法处理  html 页面中的图片   例如 ： <img src="xxxxx">  识别不了。
+
+        解决方式 ：
+
+             =》   配置loader   如下 ：
+                    rules:[
+                        {
+                            test:/\.html$/,
+                            loader:"html-loader"   // html-loader 是处理html文件中的 img 标签中的图片资源  *******
+                        }
+                    ]
+            =》   安装依赖  cnpm i html-loader -D
+6 . 打包其他资源
+
+    新建文件，创建src ... 同上   引入字体图标文件  ，并且在 index.js中引入
+
+    配置loader  思路： 其他文件也就是除 html js  css 文件，
+
+    rules：[
+        {
+           test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+           loader: 'file-loader'
+        }
+    ]
+
+    下载依赖  cnpm i file-loader -D
+    运行 webpack 即可打包。
+----------------------------------------------------------------------------------------------------------------------------
+    总结：  相关loader   ：  style-loader  css-loader  [  less-loader , less ]   file-loader url-loader
+
+           plugins : html-webpack-plugin
+
+           打包 js  json  css  html   图片 其他资源（字体图标等）
+
+           命令：  初始化  ： cnpm init
+                  全局安装 ： cnpm i webpack webpack-cli -g
+                  本地安装： cnpm i webpack webpack-cli -D
+
+                  loader : cnpm i xxx-loader -D    loader 安装后直接使用
+                  plugins : cnpm i html-webpack-plugin -D   plugins 安装 =》 require =》 new
+
+---------------------------------------------------------------------------------------------------------------------------
+
+开发服务器 devServer  ： 用来自动化（自动编译，打开刷新浏览器）
+特点：只会在内存中编译打包，不会有任何输出。
+指定启动 npx webpack-dev-server
+    1. 下载 webpack-dev-server    指令 ： cnpm i webpack-dev-server -D
+
+       在webpack.config.js 中 配置devServer 如下 ：
+
+       devServer: {
+            //指定服务器运行起来 找 打包后的文件
+            contentBase:resolve(__dirname , 'build'),
+            // 启动gzip压缩
+            compress:true,
+            // 设置服务器端口
+            port:3000
+       }

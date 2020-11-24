@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "less-loader": "^7.0.2"
+  }
+}

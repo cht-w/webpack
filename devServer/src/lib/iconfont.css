@@ -1,0 +1,29 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1605088315185'); /* IE9 */
+  src: url('iconfont.eot?t=1605088315185#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAO4AAsAAAAACGgAAANrAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDDAqENIQIATYCJAMQCwoABCAFhG0HRRtnB8gOJQWRiABgIEJFPPz/ft/2ufc+GdMkSTTNmm7SxPFEIpNnIngmQ5/QiCxC9uQl/J/cfB9c9Phes6u5QCrGh0fih1UcKiqb6Gw2mU7pqDbzP8eMF4UDy7+2uWQk7o3Wz8cDGlDHFV2T3YkcH5+I3SK7iCtikfcT6DalA2F71IQZEFOgVYF4kk6qEMuYlAZiaLV1xcEi3kKlTc/Ex8Cb4PvjP6xEjKTK0IMOH4/UYcivJr+aZi+4di97cD2eA8oxMpaBQlxWuo6RKLWM6LZSIbNgXbOCX007Ab+aeKLV/ssjJJmoIVUvj1k1ZKckplyCX8whOUMxXyIDf4wWPbgFUXG6iXEmVXJv73TNcjpEg9mjK16/nvHmjfzuXeLtW1mQ5vNyhS+QD22rJScYS9sDXs0ZMkub/VtrKzNY2h306yQURRZKFGkW9BCE+pt36E+ki94BSfr0rnn4l29dozME6cO5enD4LOWit5/S59duXRaEmyu3r0uyQN+frQtHzknzK9QZkbr3YJ32S6lnhF0lX76Qq5jvCVhDktf/AHn4kPDyA6KAl4kF8WsjykY4SOD3NSK+GoJ/78iLR9GjPYe0E/3zl/ywD7dnI176tx/fe1M6val329Wdo0eiuyqGDhXkuvXhTJ0FwZ1HU4oROVKsfRB0bjfHdtU5LdSrWzNYqyYc+2CoUUNJ7d+/ZfYSm/Dnz9PABOj8zKcJAyA/Fb9mf0JAsPb5WN8F5QP+tz0FfHnxpn8Q6vws0C/dSoDFf1sMbCm2FJlLMWVU5ISLfe9rZUK3bnQg37D3Y2jGwJWE1lgCSWMSstY0omCWodJjFWqtNei2ZPTxHiNsRJQuLNrAQRh0BZJ+HyEb9ARRMEWojPsOtcEg0O08alzYYzbSdLiNqos6q17G0hovGMTq0rB6GiYX5VQ7LQ1ICtpOOsq6duqSz47GAtpjbHEWJ7u5rsEMm+fZKO5hmMtxZto8g5rbKeW6Zr/OnY2qT+qk8TxQW2xI5UI6ptoyTJqGKzC84S5a+PppUNIiOSq7oanFq0A2R3p8pqtOugAQo1UFUNO1PMexWFI3LpeBMdi4PGYU50A5nOIYs3peBtK4Okn1SJj66Sx0MqCqTvNr8k94BLqhDymRIkeJSrPFc9xBPToGVd1BNzp9kaah4wAAAA==') format('woff2'),
+  url('iconfont.woff?t=1605088315185') format('woff'),
+  url('iconfont.ttf?t=1605088315185') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1605088315185#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Colosed:before {
+  content: "\e61f";
+}
+
+.icon-Headset:before {
+  content: "\e620";
+}
+
+.icon-Success:before {
+  content: "\e621";
+}
+
